@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="src/styles/style.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="shortcut icon" href="src/images/vanilla.svg" type="image/x-icon">
+  <title>Vanilla Books</title>
+  <script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+      <a href="/"><img src="src/images/vanilla1.png" alt="logo"></a>
+      <h2>Vanilla Books</h2>
+    </div>
+    <a href="">
+      <h4>Favorites</h4>
+    </a>
+  </header>
+  <div class="top">
+    <form class="search">
+      <select class="search__drop" name="genre" id="genre">
+        <option value="all">All</option>
+      </select>
+      <input class="search__txt" type="text" placeholder="Search books..." id="txt">
+      <input class="search__btn" type="button" value="Search" id="btn">
+    </form>
+
+  </div>
+  <main id="main">
+    <h2>Results</h2>
+    <div class="results" id="results">
+    </div>
+    <div class="pagination" id="pagination">
+      <form>
+        <input type="button" value="<" onclick="prev()"></input>
+        <input type="text" id="txtPage" disabled>
+        <input type="button" value=">" onclick="next()"></input>
+      </form>
+      <p id="total"></p>
+    </div>
+  </main>
+  <footer>
+    <a href=""><img src="src/images/linkedin-brands.svg" alt="linkedin"></a>
+    <a href=""><img src="src/images/facebook-square-brands.svg" alt="facebook"></a>
+    <a href=""><img src="src/images/twitter-square-brands.svg" alt="twitter"></a>
+    <a href=""><img src="src/images/github-square-brands.svg" alt="github"></a>
+    <a href=""><img src="src/images/instagram-square-brands.svg" alt="instagram"></a>
+  </footer>
+  <script type="text/javascript" src="api.js"></script>
+</body>
+
+</html>
