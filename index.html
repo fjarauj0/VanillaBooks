@@ -8,32 +8,34 @@
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <link rel="shortcut icon" href="src/images/vanilla.svg" type="image/x-icon">
-  <title>Vanilla Books</title>
+  <script src="https://kit.fontawesome.com/91ef4f1cdf.js" crossorigin="anonymous"></script>
   <script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
+  <title>Vanilla eBooks</title>
 </head>
 
 <body>
   <header>
     <div class="logo">
       <a href="/"><img src="src/images/vanilla1.png" alt="logo"></a>
-      <h2>Vanilla Books</h2>
+      <h2>Vanilla eBooks</h2>
     </div>
-    <a href="">
-      <h4>Favorites</h4>
+    <a href="#" onclick="Favorites(); return false;">
+      <h4 >Favorites</h4>
     </a>
   </header>
   <div class="top">
     <form class="search">
-      <select class="search__drop" name="genre" id="genre">
+      <select class="search__drop" name="genre" id="type">
         <option value="all">All</option>
+        <option value="ebooks">Ebooks</option>
       </select>
       <input class="search__txt" type="text" placeholder="Search books..." id="txt">
-      <input class="search__btn" type="button" value="Search" id="btn">
+      <input class="btn" type="button" value="Search" id="btn">
     </form>
 
   </div>
   <main id="main">
-    <h2>Results</h2>
+    <h2 id=mainTitle></h2>
     <div class="results" id="results">
     </div>
     <div class="pagination" id="pagination">

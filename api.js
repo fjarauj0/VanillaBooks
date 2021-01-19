@@ -5,31 +5,45 @@ let actualPage = 1;
 let pages = 0,
   input;
 
+localStorage.setItem("favs", "wsflfIQFh6cC");
+let favorites = [];
+
 const pageTxt = document.getElementById("txtPage");
 const output = document.getElementById("results");
 const total = document.getElementById("total");
+const mainTitle = document.getElementById("mainTitle");
 
-document.getElementById("btn").addEventListener("click", search);
+const favActive = "fav--active fas";
+const favInactive = "fav--inactive far";
 
-function search() {
+document.getElementById("btn").addEventListener("click", newSearch);
+let main = document.getElementById("main");
+
+function newSearch() {
   input = document.getElementById("txt").value;
+  pages = 0;
   startIndex = 0;
   actualPage = 1;
-  pages = 0;
+  output.style.display = "grid";
+  document.getElementById("pagination").style.display = "initial";
   getData(input);
 }
 
 const getData = async (input) => {
+  let filter = document.getElementById("type").value;
+  if (filter == "ebooks") filter = "&filter=ebooks";
+  else filter = "";
+
   startIndex = (actualPage - 1) * maxResults;
   output.innerHTML = "";
   const apiURL = input
-    ? `${API}?q=${input}&maxResults=${maxResults}&startIndex=${startIndex}`
+    ? `${API}?q=${input}&maxResults=${maxResults}&startIndex=${startIndex}${filter}`
     : API;
   try {
     const response = await fetch(apiURL);
     const data = await response.json();
     if (pages == 0) {
-      pages = Math.ceil(data.totalItems / 20);
+      pages = Math.ceil(data.totalItems / maxResults);
       total.innerHTML = `Pages: ${pages}`;
     }
     setPage();
@@ -40,13 +54,17 @@ const getData = async (input) => {
 };
 
 const setCards = (data) => {
-  document.getElementById("main").style.display = "block";
+  mainTitle.innerHTML = "Results";
+  main.style.display = "block";
   data.items.forEach((element) => {
+    if (favorites.includes(element.id)) favStatus = favActive;
+    else favStatus = favInactive;
     if (typeof element.volumeInfo.imageLinks == "undefined")
       cover = "src/images/no_cover_thumb.gif";
     else cover = element.volumeInfo.imageLinks.thumbnail;
     output.innerHTML += `
   <div class="card">
+  <div class="fav"onClick="addFav(this.id)"  id="${element.id}"><i class="${favStatus} fa-heart "></i></div>
   <a href="${element.volumeInfo.canonicalVolumeLink}" target="_blank"><img src="${cover}"></a>
   <h4>${element.volumeInfo.title}</h4>
   <p>${element.volumeInfo.authors}</p> 
@@ -70,5 +88,43 @@ const next = () => {
   if (actualPage < pages) {
     actualPage += 1;
     getData(input);
+  }
+};
+
+const clearFav = () => {
+  localStorage.clear("favs");
+};
+
+const addFav = (id) => {
+  favorites.push(id);
+  console.log(favorites);
+};
+
+const Favorites = () => {
+  output.innerHTML = "";
+  output.style.display = "block";
+  main.style.display = "block";
+  mainTitle.innerHTML = "Favorites";
+  document.getElementById("pagination").style.display = "none";
+  favorites.forEach((id) => {
+    setFavorites(id);
+  });
+  output.innerHTML += `<button class=btn onclick="clearFav()">Clear</button>`;
+};
+
+const setFavorites = async (id) => {
+  const apiURL = `${API}/${id}`;
+  try {
+    const response = await fetch(apiURL);
+    const data = await response.json();
+    console.log(data);
+    output.innerHTML += `
+    <div class="card__fav">
+    <h3>${data.volumeInfo.title}</h3>
+    <p>${data.volumeInfo.authors}</p>
+    <p></p>
+    </div>`;
+  } catch (error) {
+    console.log("Fetch error", error);
   }
 };

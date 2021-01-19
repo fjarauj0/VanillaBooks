@@ -60,7 +60,7 @@ header a {
   padding: 40px;
 }
 
-.search__btn {
+.btn {
   border-style: none;
   color: white;
   background-color: #4966b0;
@@ -90,7 +90,9 @@ header a {
   margin-top: 20px;
   margin-bottom: 20px;
 }
-
+.card{
+  position: relative;
+}
 .card img {
   box-shadow: 5px 6px 9px 1px rgba(0, 0, 0, 0.1);
   width: 150px;
@@ -122,4 +124,32 @@ main h2 {
 .pagination input {
   text-align: center;
   width: 25px;
+}
+
+.fav{
+  position: absolute;
+  right: 0;
+  z-index: 2;
+  height: 40px;
+  width: 40px;
+  background-color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.fav--inactive{
+  color: gray;
+}
+.fav--inactive:hover{ 
+  color: red;
+}
+.fav--active{
+  color: red;
+}
+.fav--active:hover{
+  color: gray;
 }
