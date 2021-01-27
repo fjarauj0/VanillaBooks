@@ -17,13 +17,11 @@ document.getElementById("btn").addEventListener("click", newSearch);
 let main = document.getElementById("main");
 
 //if favs exists in local storage, set favorites array with elemens in local storage, else set favorites array empty
-if (localStorage.getItem("favs") != null) {
-  favorites = JSON.parse(localStorage.getItem("favs"));
-  console.log("paso por el if")
+if (localStorage.getItem("favs") === null) {
+  favorites = [];
 }
 else {
-  favorites = [];
-  console.log("paso por el else")
+  favorites = JSON.parse(localStorage.getItem("favs"));
 }
 
 function newSearch() {
