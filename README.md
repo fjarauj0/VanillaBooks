@@ -13,6 +13,6 @@ Proyecto maquetación estilo periódico antiguo
 | **Entregable**  | Código en Github, maqueta desplegada en Github Pages, Readme |
 | **Habilidades a evaluar**  | Uso de Javascript Vanilla, almacenamiento local, lectura y renderizado de datos de una api |
 
-Se utilizo la API de Google Books pero esta API tiene la opcion de filtrar por categorias.
+Se utilizo la API de Google Books pero esta API no tiene la opcion de filtrar por categorias. se agrego la opción para filtrar ebooks.
 https://developers.google.com/books/docs/v1/using
-Falta implementar local storage
+Se utiliza local storage para guardar el id de los libros agregados como favoritos.

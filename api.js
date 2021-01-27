@@ -3,10 +3,7 @@ const maxResults = 20;
 let startIndex = 0;
 let actualPage = 1;
 let pages = 0,
-  input;
-
-localStorage.setItem("favs", "wsflfIQFh6cC");
-let favorites = [];
+  input, favorites;
 
 const pageTxt = document.getElementById("txtPage");
 const output = document.getElementById("results");
@@ -19,8 +16,19 @@ const favInactive = "fav--inactive far";
 document.getElementById("btn").addEventListener("click", newSearch);
 let main = document.getElementById("main");
 
+//if favs exists in local storage, set favorites array with elemens in local storage, else set favorites array empty
+if (localStorage.getItem("favs") != null) {
+  favorites = JSON.parse(localStorage.getItem("favs"));
+  console.log("paso por el if")
+}
+else {
+  favorites = [];
+  console.log("paso por el else")
+}
+
 function newSearch() {
-  input = document.getElementById("txt").value;
+  input = document.getElementById("txt")
+    .value;
   pages = 0;
   startIndex = 0;
   actualPage = 1;
@@ -93,11 +101,25 @@ const next = () => {
 
 const clearFav = () => {
   localStorage.clear("favs");
+  favorites = [];
+  Favorites();
+
 };
 
 const addFav = (id) => {
-  favorites.push(id);
-  console.log(favorites);
+  if (!favorites.includes(id)) {
+    document.getElementById(id).innerHTML = `<i class="${favActive} fa-heart "></i>`
+    favorites.push(id);
+  }
+  else {
+    document.getElementById(id).innerHTML = `<i class="${favInactive} fa-heart "></i>`
+    for (var i = 0; i < favorites.length; i++) {
+      if (favorites[i] === id) {
+        favorites.splice(i, 1);
+      }
+    }
+  }
+  localStorage.setItem("favs", JSON.stringify(favorites));
 };
 
 const Favorites = () => {
@@ -117,7 +139,6 @@ const setFavorites = async (id) => {
   try {
     const response = await fetch(apiURL);
     const data = await response.json();
-    console.log(data);
     output.innerHTML += `
     <div class="card__fav">
     <h3>${data.volumeInfo.title}</h3>
